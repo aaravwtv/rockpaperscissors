@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head> <title> Rock, Paper, Scissors</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+        .choice-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Rock, Paper, Scissors</h1>
+
+        <div class="choice-container text-center">
+            <button class="btn btn-primary" id="rock">Rock</button>
+            <button class="btn btn-primary" id="paper">Paper</button>
+            <button class="btn btn-primary" id="scissors">Scissors</button>
+        
+
+        <p class="text-center mt-3">Make your choice:</p>
+
+        <p id="player-choice" class="text-center">You chose: ?</p>
+        <p id="computer-choice" class="text-center">Computer chose: ?</p>
+        <p class="result text-center">Result: ?</p>
+        
+       
+        <button class="btn btn-primary mt-3" id="play-again">Play Again</button>
+    </div>
+
+
+
+    <script>
+        // constants using id
+      const buttons = document.querySelectorAll("button");
+        const playerChoiceDisplay = document.getElementById("player-choice");
+        const computerChoiceDisplay = document.getElementById("computer-choice");
+        const resultDisplay = document.querySelector(".result");
+        const playAgainButton = document.getElementById("play-again");
+
+      // display text
+        function resetGame() {
+            playerChoiceDisplay.textContent = "You chose: ?";
+            computerChoiceDisplay.textContent = "Computer chose: ?";
+            resultDisplay.textContent = "Result: ?";
+        }
+// using constants
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const playerChoice = button.textContent; 
+                const computerChoice = getComputerChoice();
+                const result = determineWinner(playerChoice, computerChoice);
+
+                playerChoiceDisplay.textContent = `You chose: ${playerChoice}`;
+                computerChoiceDisplay.textContent = `Computer chose: ${computerChoice}`;
+                resultDisplay.textContent = `Result: ${result}`;
+            });
+        });
+//play again
+        playAgainButton.addEventListener("click", () => {
+    
+            resetGame();
+        });
+//math/ random index
+        function getComputerChoice() {
+            const choices = ["Rock", "Paper", "Scissors"];
+            const randomIndex = Math.floor(Math.random() * 3);
+            return choices[randomIndex];
+        }
+//determine winner
+        function determineWinner(player, computer) {
+            if (player === computer) {
+                return "It's a tie!";
+            } else if (
+                (player === "Rock" && computer === "Scissors") ||
+                (player === "Paper" && computer === "Rock") ||
+                (player === "Scissors" && computer === "Paper")
+            ) {
+                return "You win!";
+            } else {
+                return "Computer wins!";
+            }
+        }
+    </script>
+</body>
+</html>
